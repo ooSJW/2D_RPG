@@ -32,7 +32,7 @@ public partial class PoolManager : MonoBehaviour // Inner Class
             }
         }
 
-        public GameObject Spawn(Transform activeParent)
+        public GameObject Spawn(Transform activeParent = null)
         {
             GameObject poolObject = null;
             if (poolObjectList.Count > 0)
@@ -48,6 +48,12 @@ public partial class PoolManager : MonoBehaviour // Inner Class
                 poolObject.name = originPrefab.name;
             }
             return poolObject;
+        }
+        public void Despawn(GameObject poolObject)
+        {
+            poolObject.transform.SetParent(parent);
+            poolObject.SetActive(false);
+            poolObjectList.Add(poolObject);
         }
     }
 }
@@ -71,7 +77,26 @@ public partial class PoolManager : MonoBehaviour // Initialize
 
     }
 }
-public partial class PoolManager : MonoBehaviour // 
+public partial class PoolManager : MonoBehaviour // Property
 {
+    public void Register()
+    {
+        poolDictionary.Clear();
+        List<GameObject> poolObjectList = MainSystem.Instance.SceneManager.ActiveScene.poolableObjectList;
+        for (int i = 0; i < poolObjectList.Count; i++)
+        {
+            Pool pool = new Pool(poolObjectList[i]);
+            pool.Register();
+            poolDictionary.Add(poolObjectList[i].name, pool);
+        }
+    }
 
+    public GameObject Spawn(string name)
+    {
+        return poolDictionary[name].Spawn();
+    }
+    public void Despawn(GameObject poolObject)
+    {
+        poolDictionary[poolObject.name].Despawn(poolObject);
+    }
 }
