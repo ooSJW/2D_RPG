@@ -7,6 +7,20 @@ public partial class Player : MonoBehaviour // Data Field
     [field: SerializeField] public PlayerAnimation PlayerAnimation { get; private set; }
     [field: SerializeField] public PlayerGroundDetector PlayerGroundDetector { get; private set; }
 }
+
+public partial class Player : MonoBehaviour // Data Property
+{
+    private PlayerState playerState;
+    public PlayerState PlayerState
+    {
+        get => playerState;
+        set
+        {
+            playerState = value;
+        }
+    }
+}
+
 public partial class Player : MonoBehaviour // Initialize
 {
     private void Allocate()
@@ -36,5 +50,9 @@ public partial class Player : MonoBehaviour // Main
     private void FixedUpdate()
     {
         PlayerMovement.FixedProgress();
+    }
+    private void LateUpdate()
+    {
+        PlayerAnimation.LateProgress();
     }
 }

@@ -9,7 +9,15 @@ public partial class PlayerInput : MonoBehaviour // Data Field
 public partial class PlayerInput : MonoBehaviour // Data Property
 {
     private Vector2 inputVector;
-    public Vector2 InputVector { get => inputVector; private set { inputVector = value; } }
+    public Vector2 InputVector
+    {
+        get
+        {
+            SetInputValue();
+            return inputVector;
+        }
+        private set { inputVector = value; }
+    }
 
     private bool jumpTrigger;
     public bool JumpTrigger
@@ -18,7 +26,13 @@ public partial class PlayerInput : MonoBehaviour // Data Property
         private set
         {
             jumpTrigger = value;
-            player.PlayerMovement.Jump();
+            if (jumpTrigger)
+            {
+                inputVector.y = 1;
+                player.PlayerMovement.Jump();
+            }
+            else
+                inputVector.y = 0;
         }
     }
 
@@ -52,15 +66,24 @@ public partial class PlayerInput : MonoBehaviour // Private Property
         playerInputAction = new PlayerInputAction();
         playerInputAction.Enable();
 
-        playerInputAction.PlayerInput.Left.performed += ctx => inputVector.x = -1;
-        playerInputAction.PlayerInput.Left.canceled += ctx => inputVector.x = 0;
-
-        playerInputAction.PlayerInput.Right.performed += ctx => inputVector.x = 1;
-        playerInputAction.PlayerInput.Right.canceled += ctx => inputVector.x = 0;
-
         playerInputAction.PlayerInput.Jump.performed += ctx => JumpTrigger = true;
         playerInputAction.PlayerInput.Jump.canceled += ctx => JumpTrigger = false;
     }
 
+    public void SetInputValue()
+    {
+        bool isLeftPressed = playerInputAction.PlayerInput.Left.IsPressed();
+        bool isRightPressed = playerInputAction.PlayerInput.Right.IsPressed();
+        int inputX = 0;
+        if (isLeftPressed && isRightPressed)
+            inputX = 0;
+        else if (isLeftPressed)
+            inputX = -1;
+        else if (isRightPressed)
+            inputX = 1;
+        else
+            inputX = 0;
 
+        inputVector.x = inputX;
+    }
 }

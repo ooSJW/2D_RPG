@@ -5,7 +5,11 @@ public partial class PlayerGroundDetector : MonoBehaviour // Data Field
     private Player player;
 
     private bool isGround;
-    public bool IsGround { get => isGround; private set => isGround = value; }
+    public bool IsGround
+    {
+        get => isGround;
+        set => isGround = value;
+    }
 }
 public partial class PlayerGroundDetector : MonoBehaviour // Initialize
 {
@@ -26,15 +30,20 @@ public partial class PlayerGroundDetector : MonoBehaviour // Initialize
 }
 public partial class PlayerGroundDetector : MonoBehaviour // 
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.CompareTag("Ground"))
+        if (collision.transform.CompareTag("Ground"))
+        {
             IsGround = true;
+            player.PlayerMovement.EndJump();
+        }
         // TODO : 점프 버그 처리 
+
+            print("충돌");
     }
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.CompareTag("Ground"))
+        if (collision.transform.CompareTag("Ground"))
             IsGround = false;
     }
 }

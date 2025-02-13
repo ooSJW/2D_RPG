@@ -1,26 +1,8 @@
 using UnityEngine;
 
-public partial class EnumData : MonoBehaviour // Data Field
+public enum PlayerState
 {
-
-}
-public partial class EnumData : MonoBehaviour // Initialize
-{
-    private void Allocate()
-    {
-
-    }
-    public void Initialize()
-    {
-        Allocate();
-        Setup();
-    }
-    private void Setup()
-    {
-
-    }
-}
-public partial class EnumData : MonoBehaviour // 
-{
-
+    Idle,
+    Run,
+    Jump,
 }
