@@ -15,10 +15,7 @@ public partial class PlayerMovement : MonoBehaviour // Data Field
     public bool CanMove
     {
         get => canMove;
-        set
-        {
-            canMove = value;
-        }
+        set { canMove = value; }
     }
 }
 public partial class PlayerMovement : MonoBehaviour // Initialize
@@ -26,6 +23,7 @@ public partial class PlayerMovement : MonoBehaviour // Initialize
     private void Allocate()
     {
         moveVector = Vector2.zero;
+        CanMove = true;
     }
     public void Initialize(Player playerValue)
     {
@@ -49,34 +47,36 @@ public partial class PlayerMovement : MonoBehaviour // Property
 {
     public void PlayerMove()
     {
-        if (player.PlayerGroundDetector.IsGround)
+        if (CanMove)
         {
-            Vector2 inputVector = player.PlayerInput.InputVector;
-            moveVector.x = inputVector.x * moveSpeed;
-            if (Mathf.Approximately(0, moveVector.x))
-                player.PlayerState = PlayerState.Idle;
-            else
-                player.PlayerState = PlayerState.Run;
-        }
-        else
-        {
-            moveVector.x -= Time.fixedDeltaTime;
-            player.PlayerState = PlayerState.Jump;
-        }
+            if (player.PlayerGroundDetector.IsGround)
+            {
+                Vector2 inputVector = player.PlayerInput.InputVector;
+                moveVector.x = inputVector.x * moveSpeed;
+                if (Mathf.Approximately(0, moveVector.x))
+                    player.PlayerState = PlayerState.Idle;
+                else
+                    player.PlayerState = PlayerState.Run;
+            }
+            else if (!Mathf.Approximately(moveVector.x, 0))
+            {
+                moveVector.x -= Time.fixedDeltaTime;
+            }
 
-        rigid.linearVelocity = new Vector2(moveVector.x, rigid.linearVelocityY);
+            rigid.linearVelocity = new Vector2(moveVector.x, rigid.linearVelocityY);
+        }
     }
     public void Jump()
     {
-        if (player.PlayerGroundDetector.IsGround)
+        if (player.PlayerGroundDetector.IsGround && CanMove)
         {
             rigid.linearVelocityY = jumpSpeed;
             player.PlayerGroundDetector.IsGround = false;
+            player.PlayerState = PlayerState.Jump;
         }
     }
     public void EndJump()
     {
-        moveVector.y = 0;
         player.PlayerState = PlayerState.Idle;
     }
     public void ApplyAirControl()

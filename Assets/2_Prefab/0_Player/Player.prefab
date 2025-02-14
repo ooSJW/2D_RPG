@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2900218875308588589}
   - component: {fileID: 827722496337519530}
   - component: {fileID: 2090642674025853698}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GroundSensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,8 +97,9 @@ GameObject:
   - component: {fileID: 894352939518203020}
   - component: {fileID: 3123054261458836207}
   - component: {fileID: 407459577239367254}
+  - component: {fileID: 2169093349330345961}
   - component: {fileID: 6720528154236654917}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -292,6 +293,9 @@ MonoBehaviour:
   <PlayerMovement>k__BackingField: {fileID: 407459577239367254}
   <PlayerAnimation>k__BackingField: {fileID: 6720528154236654917}
   <PlayerGroundDetector>k__BackingField: {fileID: 6904259780698918432}
+  <PlayerCombat>k__BackingField: {fileID: 2169093349330345961}
+  boxSize: {x: 1.3, y: 1.5}
+  offset: {x: 0.7, y: 0.7}
 --- !u!114 &3123054261458836207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,6 +324,23 @@ MonoBehaviour:
   moveSpeed: 5
   jumpSpeed: 10
   airControlFactor: 0
+--- !u!114 &2169093349330345961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6323719953710832613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd32cd7fb56d76940ab2663443330deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  boxSize: {x: 1.3, y: 1.5}
+  offset: {x: 0.7, y: 0.7}
 --- !u!114 &6720528154236654917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,7 +366,7 @@ GameObject:
   - component: {fileID: 7646082782773197330}
   - component: {fileID: 1011138383611117998}
   - component: {fileID: 2724002377843051195}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WallSensor_R2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -426,7 +447,7 @@ GameObject:
   - component: {fileID: 7545586967719115471}
   - component: {fileID: 6904259780698918432}
   - component: {fileID: 1171326212524372128}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerGroundDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -508,7 +529,7 @@ GameObject:
   - component: {fileID: 3233824457707053878}
   - component: {fileID: 1306675150133841448}
   - component: {fileID: 7644162722278263769}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WallSensor_L2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -589,7 +610,7 @@ GameObject:
   - component: {fileID: 4393510860592810054}
   - component: {fileID: 3960872287899394342}
   - component: {fileID: 4862588835780617305}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WallSensor_R1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -670,7 +691,7 @@ GameObject:
   - component: {fileID: 351674194244795142}
   - component: {fileID: 5359120195630597513}
   - component: {fileID: 2193030436431168656}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WallSensor_L1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

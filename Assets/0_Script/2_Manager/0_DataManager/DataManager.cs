@@ -4,18 +4,19 @@ using UnityEngine;
 
 public partial class DataManager : MonoBehaviour // Data Field
 {
-
+    public PlayerStatData PlayerStatData { get; private set; } = default;
 }
 public partial class DataManager : MonoBehaviour // Initialize
 {
     private void Allocate()
     {
-
+        PlayerStatData = new PlayerStatData();
     }
     public void Initialize()
     {
         Allocate();
         Setup();
+        PlayerStatData.Initialize();
     }
     private void Setup()
     {
@@ -47,7 +48,7 @@ public partial class DataManager : MonoBehaviour // Property
 
     #region CSV
 
-    public void LoadCsv<T>(Dictionary<string, T> dataDict, string path) where T : BaseInformation, new()
+    public void LoadCsv<T>(string path, Dictionary<string, T> dataDict) where T : BaseInformation, new()
     {
         dataDict.Clear();
         TextAsset csvFile = Resources.Load<TextAsset>($"Csv/{path}");
@@ -69,9 +70,18 @@ public partial class DataManager : MonoBehaviour // Property
         if (csvValues.Length == fieldInfoArray.Length)
         {
             data.index = csvValues[0];
-            for (int i = 0; i < csvValues.Length; i++)
+            // TODO 사고 발생 : BaseInformation 만 상속받았을 때 잘 돌아감,
+            // 문제점 : combatBaseInfo가 있을 때 BaseInfo->CombatBaseInfo->PlayerStatData 이렇게 상속 받았을 때
+            // 변수 순서가 꼬여서 값 순서가 뒤엉킴
+            // GetFields()를 뽑아보면 1. playerStatData의 멤버, 2. combatBase의 멤버, 3.baseInfo의 멤버 순으로 들어감.
+
+            // TODO 고민중인 해결 방법 :
+            // 1. 매개변수로 csv에 선언된 변수 이름을 받거나 전역 변수로 해당 이름들을 저장.
+            // 2. LinQ로 탐색하며 이름이 같은 변수에 해당 이름과 같은 index에 위치한 값을 저장. ( 성능 개 박살날수도?;;)
+            for (int i = 0; i + 1 < csvValues.Length; i++)
             {
                 FieldInfo currentField = fieldInfoArray[i];
+                print(currentField.Name);
                 string currentCsvValue = csvValues[i + 1];
 
                 if (currentField.FieldType == typeof(string))

@@ -1,0 +1,42 @@
+// for문의 i 즉 헤더의 i와 실제 csvValue의 i == 변수에 이름을 붙힌것 과 같을듯?
+// 이거 참고해서 조져보기
+
+
+ if (csvHeaders.Length == fieldInfoArray.Length + 1) // 첫 번째는 'index'이므로 +1
+    {
+        data.index = csvValues[0];  // 첫 번째 값은 'index'
+
+        for (int i = 0; i < fieldInfoArray.Length; i++)
+        {
+            // LINQ를 사용해 필드 이름을 검색
+            FieldInfo currentField = fieldInfoArray.FirstOrDefault(f => f.Name == csvHeaders[i + 1]);
+	
+            // 해당 필드가 존재하면 값을 설정
+            if (currentField != null)
+            {
+                string currentCsvValue = csvValues[i + 1]; // 'index' 이후의 값부터 사용
+
+                if (currentField.FieldType == typeof(string))
+                {
+                    currentField.SetValue(data, currentCsvValue);
+                }
+                else if (currentField.FieldType == typeof(int))
+                {
+                    if (int.TryParse(currentCsvValue, out int parseValue))
+                        currentField.SetValue(data, parseValue);
+                }
+                else if (currentField.FieldType == typeof(float))
+                {
+                    if (float.TryParse(currentCsvValue, out float parseValue))
+                        currentField.SetValue(data, parseValue);
+                }
+                else
+                {
+                    Debug.LogWarning($"ParsingError : Unsupported type {currentField.FieldType}");
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"No matching field found for CSV header: {csvHeaders[i + 1]}");
+            }
+        }

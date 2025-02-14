@@ -37,9 +37,6 @@ public partial class PlayerGroundDetector : MonoBehaviour //
             IsGround = true;
             player.PlayerMovement.EndJump();
         }
-        // TODO : 점프 버그 처리 
-
-            print("충돌");
     }
     private void OnCollisionExit2D(Collision2D collision)
     {

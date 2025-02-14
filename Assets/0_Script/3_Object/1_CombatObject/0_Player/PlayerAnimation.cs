@@ -25,24 +25,37 @@ public partial class PlayerAnimation : MonoBehaviour // Initialize
 }
 public partial class PlayerAnimation : MonoBehaviour // Property
 {
-    public void SetAnimation()
+    public void SetAnimationState(PlayerState playerState)
     {
-        animator.SetInteger("State", (int)player.PlayerState);
+        animator.SetInteger("State", (int)playerState);
+    }
+    public void AttackAnimationTrigger(int attackAnimationIndex = 0)
+    {
+        string trigger = $"Attack{attackAnimationIndex}";
+        animator.SetTrigger(trigger);
     }
     public void FlipX()
     {
-        float moveXValue = player.PlayerInput.InputVector.x;
+        if (!player.PlayerCombat.IsAttacking)
+        {
+            float moveXValue = player.PlayerInput.InputVector.x;
 
-        if (moveXValue == 0) return;
-        else if (moveXValue > 0) spriteRenderer.flipX = false;
-        else spriteRenderer.flipX = true;
+            if (moveXValue == 0) return;
+            else if (moveXValue > 0) spriteRenderer.flipX = false;
+            else spriteRenderer.flipX = true;
+        }
+    }
+    public float GetCharacterDirection()
+    {
+        if (spriteRenderer.flipX)
+            return -1;
+        else return 1;
     }
 }
 public partial class PlayerAnimation : MonoBehaviour // Main
 {
     public void LateProgress()
     {
-        SetAnimation();
         FlipX();
     }
 }

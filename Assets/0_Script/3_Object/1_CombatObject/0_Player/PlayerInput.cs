@@ -86,4 +86,8 @@ public partial class PlayerInput : MonoBehaviour // Private Property
 
         inputVector.x = inputX;
     }
+    public bool IsAttackPressed()
+    {
+        return playerInputAction.PlayerInput.Attack.IsPressed();
+    }
 }
