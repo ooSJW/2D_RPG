@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
@@ -55,58 +57,67 @@ public partial class DataManager : MonoBehaviour // Property
         if (csvFile != null)
         {
             string[] csvFileArray = csvFile.text.Split("\n");
+            string[] csvFieldName = csvFileArray[0].Split(",");
+
             for (int i = 1; i < csvFileArray.Length; i++) // 0번째 레이블 == 변수 이름
             {
                 string[] csvValue = csvFileArray[i].Split(",");
-                dataDict.Add(csvValue[0], ParseCsv<T>(csvValue));
+                dataDict.Add(csvValue[0], ParseCsv<T>(csvFieldName, csvValue));
             }
         }
     }
 
-    public T ParseCsv<T>(string[] csvValues) where T : BaseInformation, new()
+    public T ParseCsv<T>(string[] csvFieldName, string[] csvValues) where T : BaseInformation, new()
     {
         T data = new T();
         FieldInfo[] fieldInfoArray = typeof(T).GetFields();
-        if (csvValues.Length == fieldInfoArray.Length)
+        /* if (csvValues.Length == fieldInfoArray.Length)
+         {
+             data.index = csvValues[0];
+
+             for (int i = 0; i + 1 < csvValues.Length; i++)
+             {
+                 FieldInfo currentField = fieldInfoArray[i];
+                 print(currentField.Name);
+                 string currentCsvValue = csvValues[i + 1];
+
+                 currentField.SetValue(data, Convert.ChangeType(currentCsvValue, currentField.FieldType));
+
+                 //if (currentField.FieldType == typeof(string))
+                 //    currentField.SetValue(data, currentCsvValue);
+
+                 //else if (currentField.FieldType == typeof(int))
+                 //{
+                 //    if (int.TryParse(currentCsvValue, out int parseValue))
+                 //        currentField.SetValue(data, parseValue);
+                 //}
+                 //else if (currentField.FieldType == typeof(float))
+                 //{
+                 //    if (float.TryParse(currentCsvValue, out float parseValue))
+                 //        currentField.SetValue(data, parseValue);
+                 //}
+                 //else
+                 //    Debug.LogWarning($"ParsingError : Current Data Type is {currentField.FieldType.ToString()}");
+             }
+         }
+         else
+         {
+             Debug.LogWarning($"ParsingError : {typeof(T)}");
+             return null;
+         }
+        */
+
+        for (int i = 0; i < csvFieldName.Length; i++)
         {
-            data.index = csvValues[0];
-            // TODO 사고 발생 : BaseInformation 만 상속받았을 때 잘 돌아감,
-            // 문제점 : combatBaseInfo가 있을 때 BaseInfo->CombatBaseInfo->PlayerStatData 이렇게 상속 받았을 때
-            // 변수 순서가 꼬여서 값 순서가 뒤엉킴
-            // GetFields()를 뽑아보면 1. playerStatData의 멤버, 2. combatBase의 멤버, 3.baseInfo의 멤버 순으로 들어감.
+            string csvKey = csvFieldName[i].Replace("\r", "");
+            string csvValue = csvValues[i].Replace("\r", "");
+            FieldInfo fieldInfo = fieldInfoArray.FirstOrDefault(p => p.Name == csvKey);
 
-            // TODO 고민중인 해결 방법 :
-            // 1. 매개변수로 csv에 선언된 변수 이름을 받거나 전역 변수로 해당 이름들을 저장.
-            // 2. LinQ로 탐색하며 이름이 같은 변수에 해당 이름과 같은 index에 위치한 값을 저장. ( 성능 개 박살날수도?;;)
-            for (int i = 0; i + 1 < csvValues.Length; i++)
-            {
-                FieldInfo currentField = fieldInfoArray[i];
-                print(currentField.Name);
-                string currentCsvValue = csvValues[i + 1];
-
-                if (currentField.FieldType == typeof(string))
-                    currentField.SetValue(data, currentCsvValue);
-
-                else if (currentField.FieldType == typeof(int))
-                {
-                    if (int.TryParse(currentCsvValue, out int parseValue))
-                        currentField.SetValue(data, parseValue);
-                }
-                else if (currentField.FieldType == typeof(float))
-                {
-                    if (float.TryParse(currentCsvValue, out float parseValue))
-                        currentField.SetValue(data, parseValue);
-                }
-                else
-                    Debug.LogWarning($"ParsingError : Current Data Type is {currentField.FieldType.ToString()}");
-            }
+            if (fieldInfo != null)
+                fieldInfo.SetValue(data, Convert.ChangeType(csvValues[i], fieldInfo.FieldType));
+            else
+                Debug.LogWarning($"ParsingError : {typeof(T)}");
         }
-        else
-        {
-            Debug.LogWarning($"ParsingError : {typeof(T)}");
-            return null;
-        }
-
         return data;
     }
 

@@ -4,15 +4,10 @@ using UnityEngine;
 public partial class PlayerStatData  // Information
 {
     [System.Serializable]
-    public class PlayerStatInformation : BaseInformation
+    public class PlayerStatInformation : CombatObjectBaseInformation
     {
-        public int max_hp;
         public int max_exp;
         public int max_level;
-        public int min_damage;
-        public int max_damage;
-        public float critical_percent;
-        public float critical_increase;
     }
 }
 public partial class PlayerStatData // Data Field

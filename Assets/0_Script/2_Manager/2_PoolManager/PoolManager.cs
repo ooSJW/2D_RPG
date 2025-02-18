@@ -32,7 +32,7 @@ public partial class PoolManager : MonoBehaviour // Inner Class
             }
         }
 
-        public GameObject Spawn(Transform activeParent = null)
+        public GameObject Spawn(Transform activeParent = null, Vector3 spawnPosition = default)
         {
             GameObject poolObject = null;
             if (poolObjectList.Count > 0)
@@ -47,6 +47,10 @@ public partial class PoolManager : MonoBehaviour // Inner Class
                 poolObject = Instantiate(originPrefab, activeParent.transform.position, Quaternion.identity, activeParent);
                 poolObject.name = originPrefab.name;
             }
+
+            if (spawnPosition != default)
+                poolObject.transform.position = spawnPosition;
+
             return poolObject;
         }
         public void Despawn(GameObject poolObject)
@@ -91,9 +95,9 @@ public partial class PoolManager : MonoBehaviour // Property
         }
     }
 
-    public GameObject Spawn(string name)
+    public GameObject Spawn(string name, Vector3 spawnPosition = default)
     {
-        return poolDictionary[name].Spawn();
+        return poolDictionary[name].Spawn(null, spawnPosition);
     }
     public void Despawn(GameObject poolObject)
     {

@@ -77,7 +77,8 @@ public partial class PlayerMovement : MonoBehaviour // Property
     }
     public void EndJump()
     {
-        player.PlayerState = PlayerState.Idle;
+        if (!player.PlayerCombat.IsAttacking)
+            player.PlayerState = PlayerState.Idle;
     }
     public void ApplyAirControl()
     {

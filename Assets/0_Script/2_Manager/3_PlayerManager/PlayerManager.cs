@@ -20,7 +20,7 @@ public partial class PlayerManager : MonoBehaviour // Initialize
 
     }
 }
-public partial class PlayerManager : MonoBehaviour // 
+public partial class PlayerManager : MonoBehaviour // Sign
 {
     public void SignupPlayer(Player playerValue)
     {

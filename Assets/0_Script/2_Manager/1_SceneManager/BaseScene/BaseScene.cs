@@ -20,7 +20,7 @@ public partial class BaseScene : MonoBehaviour // Initialize
     }
     private void Setup()
     {
-
+        MainSystem.Instance.PoolManager.Register();
     }
 }
 public partial class BaseScene : MonoBehaviour // Property

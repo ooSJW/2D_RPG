@@ -1,26 +1,11 @@
 using UnityEngine;
 
-public partial class CombatObjectBaseInformation : MonoBehaviour // Data Field
+public class CombatObjectBaseInformation : BaseInformation
 {
+    public int max_hp;
+    public int min_damage;
+    public int max_damage;
 
-}
-public partial class CombatObjectBaseInformation : MonoBehaviour // Initialize
-{
-    private void Allocate()
-    {
-
-    }
-    public void Initialize()
-    {
-        Allocate();
-        Setup();
-    }
-    private void Setup()
-    {
-
-    }
-}
-public partial class CombatObjectBaseInformation : MonoBehaviour // 
-{
-
+    public float critical_percent;
+    public float critical_increase;
 }
