@@ -408,9 +408,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43ed9231030d5714f88aba067186c087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolableObjectList: []
+  poolableObjectList:
+  - {fileID: 2798016111241820596, guid: 50a9d2b87bbfcee4e8bb3a18d51c45eb, type: 3}
   player: {fileID: 604511322}
-  spawnController: {fileID: 0}
+  spawnController: {fileID: 3690589601241573181}
 --- !u!4 &1324383723
 Transform:
   m_ObjectHideFlags: 0
@@ -554,8 +555,20 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2651793214022400881, guid: c3b8a0da991bbba43a1eeb3a39894216, type: 3}
+      propertyPath: maxEnemyCount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2651793214022400881, guid: c3b8a0da991bbba43a1eeb3a39894216, type: 3}
       propertyPath: groundMask.m_Bits
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2651793214022400881, guid: c3b8a0da991bbba43a1eeb3a39894216, type: 3}
+      propertyPath: spawnableEnemyName.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2651793214022400881, guid: c3b8a0da991bbba43a1eeb3a39894216, type: 3}
+      propertyPath: 'spawnableEnemyName.Array.data[0]'
+      value: Goblin
       objectReference: {fileID: 0}
     - target: {fileID: 2798932989477122758, guid: c3b8a0da991bbba43a1eeb3a39894216, type: 3}
       propertyPath: m_Icon
@@ -602,16 +615,40 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7018746521189675714, guid: c3b8a0da991bbba43a1eeb3a39894216, type: 3}
+      propertyPath: maxEnemyCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018746521189675714, guid: c3b8a0da991bbba43a1eeb3a39894216, type: 3}
       propertyPath: groundMask.m_Bits
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018746521189675714, guid: c3b8a0da991bbba43a1eeb3a39894216, type: 3}
+      propertyPath: spawnableEnemyName.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018746521189675714, guid: c3b8a0da991bbba43a1eeb3a39894216, type: 3}
+      propertyPath: 'spawnableEnemyName.Array.data[0]'
+      value: Goblin
       objectReference: {fileID: 0}
     - target: {fileID: 7785919131598356103, guid: c3b8a0da991bbba43a1eeb3a39894216, type: 3}
       propertyPath: spawnTime
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7785919131598356103, guid: c3b8a0da991bbba43a1eeb3a39894216, type: 3}
+      propertyPath: maxEnemyCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7785919131598356103, guid: c3b8a0da991bbba43a1eeb3a39894216, type: 3}
       propertyPath: groundMask.m_Bits
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7785919131598356103, guid: c3b8a0da991bbba43a1eeb3a39894216, type: 3}
+      propertyPath: spawnableEnemyName.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7785919131598356103, guid: c3b8a0da991bbba43a1eeb3a39894216, type: 3}
+      propertyPath: 'spawnableEnemyName.Array.data[0]'
+      value: Goblin
       objectReference: {fileID: 0}
     - target: {fileID: 8014299024706657356, guid: c3b8a0da991bbba43a1eeb3a39894216, type: 3}
       propertyPath: m_LocalPosition.x
@@ -651,6 +688,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1334697649385101796, guid: c3b8a0da991bbba43a1eeb3a39894216, type: 3}
   m_PrefabInstance: {fileID: 3690589601241573179}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3690589601241573181 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8043776575372403896, guid: c3b8a0da991bbba43a1eeb3a39894216, type: 3}
+  m_PrefabInstance: {fileID: 3690589601241573179}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76995d413864545489f31b025fa30908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5758459344333641350
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -662,6 +710,22 @@ PrefabInstance:
     - target: {fileID: 4003615978497074, guid: ae20e33a4014f9847818c94bac6c251a, type: 3}
       propertyPath: m_Name
       value: BackGround
+      objectReference: {fileID: 0}
+    - target: {fileID: 3947683730436147817, guid: ae20e33a4014f9847818c94bac6c251a, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3947683730436147817, guid: ae20e33a4014f9847818c94bac6c251a, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1534716805
+      objectReference: {fileID: 0}
+    - target: {fileID: 5851962363249947026, guid: ae20e33a4014f9847818c94bac6c251a, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5851962363249947026, guid: ae20e33a4014f9847818c94bac6c251a, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1534716805
       objectReference: {fileID: 0}
     - target: {fileID: 7062123358827885607, guid: ae20e33a4014f9847818c94bac6c251a, type: 3}
       propertyPath: m_LocalPosition.x

@@ -102,8 +102,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1337515043
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 4723107735738678597, guid: c1cdd26cc09ad224884556bc4d8296ae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -204,6 +204,8 @@ MonoBehaviour:
   <EnemyMovement>k__BackingField: {fileID: -5015622093192852280}
   <EnemyCombat>k__BackingField: {fileID: 3564663746834915198}
   <EnemyAnimation>k__BackingField: {fileID: -3105633925587253042}
+  <MinTime>k__BackingField: 1.5
+  <MaxTime>k__BackingField: 3
 --- !u!114 &-5015622093192852280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,6 +218,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ac8411642dcb6d49b6c236c9f496842, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 3
+  <MoveDirection>k__BackingField: 0
+  mask:
+    serializedVersion: 2
+    m_Bits: 8
+  intervalTIme: 0
 --- !u!114 &3564663746834915198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,3 +248,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19869a0fb351c3347b8da3e97629d632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 3341262781755817578}
+  animator: {fileID: -3822756866321533962}

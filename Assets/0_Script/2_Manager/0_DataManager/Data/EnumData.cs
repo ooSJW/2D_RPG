@@ -3,7 +3,16 @@ using UnityEngine;
 public enum PlayerState
 {
     Idle,
-    Run,
+    Move,
     Jump,
     Attack,
+    GetDamage,
+    Death,
+}
+public enum EnemyState
+{
+    Idle,
+    Move,
+    Attack,
+    Death,
 }

@@ -3,6 +3,13 @@ using UnityEngine;
 public partial class EnemyMovement : MonoBehaviour // Data Field
 {
     private Enemy enemy;
+
+    // TODO TEST : CSV∑Œ ¿€º∫
+
+    [SerializeField] private float moveSpeed;
+    [field: SerializeField] public float MoveDirection { get; private set; }
+    [SerializeField] private LayerMask mask;
+
 }
 public partial class EnemyMovement : MonoBehaviour // Initialize
 {
@@ -21,7 +28,39 @@ public partial class EnemyMovement : MonoBehaviour // Initialize
 
     }
 }
-public partial class EnemyMovement : MonoBehaviour // 
+public partial class EnemyMovement : MonoBehaviour // Main
 {
+    public void Progress()
+    {
+        Move();
+    }
+}
+public partial class EnemyMovement : MonoBehaviour // Property
+{
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(new Vector2(transform.position.x + MoveDirection, transform.position.y),
+            new Vector2(transform.position.x + MoveDirection, transform.position.y) + Vector2.down);
+    }
+    public void SetMoveDirection()
+    {
+        MoveDirection = Random.Range(-1, 1);
+        if (MoveDirection == 0) MoveDirection = 1;
+    }
+    private void Move()
+    {
+        if (enemy.EnemyState == EnemyState.Move)
+        {
 
+            Vector2 rayCastRoot = new Vector2(transform.position.x + (MoveDirection * 0.5f), transform.position.y);
+            RaycastHit2D hit = Physics2D.Raycast(rayCastRoot, Vector2.down, 2.5f, mask);
+            if (hit.collider != null)
+            {
+                Vector2 direction = new Vector2(MoveDirection, 0);
+                transform.Translate(direction * moveSpeed * Time.deltaTime);
+            }
+            else
+                enemy.EnemyState = EnemyState.Idle;
+        }
+    }
 }

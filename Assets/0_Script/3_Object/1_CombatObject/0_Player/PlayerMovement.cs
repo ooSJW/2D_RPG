@@ -56,7 +56,7 @@ public partial class PlayerMovement : MonoBehaviour // Property
                 if (Mathf.Approximately(0, moveVector.x))
                     player.PlayerState = PlayerState.Idle;
                 else
-                    player.PlayerState = PlayerState.Run;
+                    player.PlayerState = PlayerState.Move;
             }
             else if (!Mathf.Approximately(moveVector.x, 0))
             {

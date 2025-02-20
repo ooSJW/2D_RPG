@@ -44,7 +44,10 @@ public partial class PoolManager : MonoBehaviour // Inner Class
             }
             else
             {
-                poolObject = Instantiate(originPrefab, activeParent.transform.position, Quaternion.identity, activeParent);
+                if (activeParent != null)
+                    poolObject = Instantiate(originPrefab, activeParent.transform.position, Quaternion.identity, activeParent);
+                else
+                    poolObject = Instantiate(originPrefab);
                 poolObject.name = originPrefab.name;
             }
 
