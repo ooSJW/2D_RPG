@@ -5,10 +5,11 @@ public partial class PlayerMovement : MonoBehaviour // Data Field
     private Player player;
     [SerializeField] private Rigidbody2D rigid;
 
-    // TODO TEST DATA : 추후 json, csv로 작성 예정
+    // TODO TEST DATA : 추후 json,
+    //
+    // 로 작성 예정
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpSpeed;
-    [SerializeField] private float airControlFactor;
 
     private Vector2 moveVector;
     private bool canMove;
@@ -79,9 +80,5 @@ public partial class PlayerMovement : MonoBehaviour // Property
     {
         if (!player.PlayerCombat.IsAttacking)
             player.PlayerState = PlayerState.Idle;
-    }
-    public void ApplyAirControl()
-    {
-        moveVector.x *= airControlFactor;
     }
 }

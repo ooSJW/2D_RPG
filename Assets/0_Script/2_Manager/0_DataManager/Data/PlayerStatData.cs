@@ -8,6 +8,7 @@ public partial class PlayerStatData  // Information
     {
         public int max_exp;
         public int max_level;
+        public float jump_force;
     }
 }
 public partial class PlayerStatData // Data Field

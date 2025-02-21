@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using static EnemyStatData;
 
 public partial class Enemy : CombatObjectBase // Data Field
 {
@@ -6,6 +8,7 @@ public partial class Enemy : CombatObjectBase // Data Field
     [field: SerializeField] public EnemyCombat EnemyCombat { get; private set; }
     [field: SerializeField] public EnemyAnimation EnemyAnimation { get; private set; }
     public Transform playerTransform { get; private set; }
+    private EnemyName enemyName;
 }
 public partial class Enemy : CombatObjectBase // Data Property
 {
@@ -34,6 +37,30 @@ public partial class Enemy : CombatObjectBase // Data Property
         }
     }
 
+    private EnemyStatInformation enemyStatInformation;
+    public EnemyStatInformation EnemyStatInformation
+    {
+        get => enemyStatInformation;
+        private set
+        {
+            enemyStatInformation = new EnemyStatInformation()
+            {
+                index = value.index,
+                name = value.name,
+                ui_name = value.ui_name,
+                move_speed = value.move_speed,
+                max_hp = value.max_hp,
+                min_damage = value.min_damage,
+                max_damage = value.max_damage,
+                critical_percent = value.critical_percent,
+                critical_increase = value.critical_increase,
+                attack_range_x = value.attack_range_x,
+                attack_range_y = value.attack_range_y,
+                attack_offset_x = value.attack_offset_x,
+                attack_offset_y = value.attack_offset_y,
+            };
+        }
+    }
     // random state time
     [field: SerializeField] public float MinTime { get; set; }
     [field: SerializeField] public float MaxTime { get; set; }
@@ -45,6 +72,9 @@ public partial class Enemy : CombatObjectBase // Initialize
     private void Allocate()
     {
         playerTransform = MainSystem.Instance.PlayerManager.Player.transform;
+        Enum.TryParse<EnemyName>(name, true, out enemyName);
+        EnemyStatInformation = MainSystem.Instance.DataManager.EnemyStatData.GetData(enemyName);
+        print(EnemyStatInformation.ui_name);
     }
     public override void Initialize()
     {
@@ -73,16 +103,24 @@ public partial class Enemy : CombatObjectBase // Main
 }
 public partial class Enemy : CombatObjectBase // Property
 {
+    private void OnDrawGizmos()
+    {
+        Vector2 attackRange = new Vector2(EnemyStatInformation.attack_range_x, EnemyStatInformation.attack_range_y);
+        Gizmos.color = Color.green;
+        Vector2 dirction = new Vector2(Mathf.Abs(attackRange.x)
+            * EnemyAnimation.GetCharacterDirection(), EnemyStatInformation.attack_offset_y);
+        Gizmos.DrawCube(transform.position + (Vector3)dirction, attackRange);
+    }
     private void SetRandomTime()
     {
-        randomTime = Random.Range(MinTime, MaxTime);
+        randomTime = UnityEngine.Random.Range(MinTime, MaxTime);
     }
     private void RandomState()
     {
         intervalTime += Time.deltaTime;
         if (intervalTime >= randomTime)
         {
-            int randomState = Random.Range((int)EnemyState.Idle, ((int)EnemyState.Move) + 1);
+            int randomState = UnityEngine.Random.Range((int)EnemyState.Idle, ((int)EnemyState.Move) + 1);
             EnemyState = (EnemyState)randomState;
             EnemyMovement.SetMoveDirection();
             SetRandomTime();
@@ -96,12 +134,12 @@ public partial class Enemy : CombatObjectBase // Property
         {
             case EnemyState.Idle:
                 RandomState();
+                EnemyCombat.CheckAttackRange();
                 break;
             case EnemyState.Move:
                 RandomState();
                 EnemyMovement.Progress();
-                break;
-            case EnemyState.Attack:
+                EnemyCombat.CheckAttackRange();
                 break;
             case EnemyState.Death:
                 break;

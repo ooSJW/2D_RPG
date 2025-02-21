@@ -4,7 +4,8 @@ public partial class EnemyMovement : MonoBehaviour // Data Field
 {
     private Enemy enemy;
 
-    // TODO TEST : CSV로 작성
+    // TODO TEST :
+    // 로 작성
 
     [SerializeField] private float moveSpeed;
     [field: SerializeField] public float MoveDirection { get; private set; }

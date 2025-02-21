@@ -7,18 +7,21 @@ using UnityEngine;
 public partial class DataManager : MonoBehaviour // Data Field
 {
     public PlayerStatData PlayerStatData { get; private set; } = default;
+    public EnemyStatData EnemyStatData { get; private set; } = default;
 }
 public partial class DataManager : MonoBehaviour // Initialize
 {
     private void Allocate()
     {
         PlayerStatData = new PlayerStatData();
+        EnemyStatData = new EnemyStatData();
     }
     public void Initialize()
     {
         Allocate();
         Setup();
         PlayerStatData.Initialize();
+        EnemyStatData.Initialize();
     }
     private void Setup()
     {
@@ -28,7 +31,7 @@ public partial class DataManager : MonoBehaviour // Initialize
 public partial class DataManager : MonoBehaviour // Property
 {
     #region Json
-    public Wrapper<T> LoadJson<T>(string path) where T : BaseInformation
+    private Wrapper<T> LoadJson<T>(string path) where T : BaseInformation
     {
         string jsonData = Resources.Load<TextAsset>($"Json/{path}").ToString();
 

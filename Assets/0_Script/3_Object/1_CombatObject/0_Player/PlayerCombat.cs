@@ -7,7 +7,9 @@ public partial class PlayerCombat : MonoBehaviour // Data Field
 
     [SerializeField] private LayerMask targetLayer;
 
-    // TODO TEST : 추후 csv json으로 작성
+    // TODO TEST : 추후
+    //
+    // json으로 작성
     private const int maxAttackCount = 3;
     [SerializeField] private Vector2 boxSize;
     [SerializeField] private Vector2 offset;

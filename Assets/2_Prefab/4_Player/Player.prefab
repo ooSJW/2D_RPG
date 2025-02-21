@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2900218875308588589}
   - component: {fileID: 827722496337519530}
   - component: {fileID: 2090642674025853698}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: GroundSensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1148005873
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ae297123f091bbf4e8f1835eb98fb293, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -366,7 +366,7 @@ GameObject:
   - component: {fileID: 7646082782773197330}
   - component: {fileID: 1011138383611117998}
   - component: {fileID: 2724002377843051195}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: WallSensor_R2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -529,7 +529,7 @@ GameObject:
   - component: {fileID: 3233824457707053878}
   - component: {fileID: 1306675150133841448}
   - component: {fileID: 7644162722278263769}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: WallSensor_L2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -610,7 +610,7 @@ GameObject:
   - component: {fileID: 4393510860592810054}
   - component: {fileID: 3960872287899394342}
   - component: {fileID: 4862588835780617305}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: WallSensor_R1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -691,7 +691,7 @@ GameObject:
   - component: {fileID: 351674194244795142}
   - component: {fileID: 5359120195630597513}
   - component: {fileID: 2193030436431168656}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: WallSensor_L1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

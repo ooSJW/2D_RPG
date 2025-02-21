@@ -9,6 +9,12 @@ public enum PlayerState
     GetDamage,
     Death,
 }
+public enum EnemyName
+{
+    Goblin,
+    Skeleton,
+    Mushroom,
+}
 public enum EnemyState
 {
     Idle,

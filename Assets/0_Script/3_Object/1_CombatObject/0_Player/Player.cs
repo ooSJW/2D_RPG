@@ -30,8 +30,14 @@ public partial class Player : CombatObjectBase // Data Property
                 max_level = value.max_level,
                 min_damage = value.min_damage,
                 max_damage = value.max_damage,
+                move_speed = value.move_speed,
+                jump_force = value.jump_force,
                 critical_percent = value.critical_percent,
                 critical_increase = value.critical_increase,
+                attack_range_x = value.attack_range_x,
+                attack_range_y = value.attack_range_y,
+                attack_offset_x = value.attack_offset_x,
+                attack_offset_y = value.attack_offset_y,
             };
             Hp = value.max_hp;
             MaxExp = value.max_exp;
