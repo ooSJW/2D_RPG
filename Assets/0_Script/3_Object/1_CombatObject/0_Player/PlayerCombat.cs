@@ -7,12 +7,9 @@ public partial class PlayerCombat : MonoBehaviour // Data Field
 
     [SerializeField] private LayerMask targetLayer;
 
-    // TODO TEST : 추후
-    //
-    // json으로 작성
     private const int maxAttackCount = 3;
-    [SerializeField] private Vector2 boxSize;
-    [SerializeField] private Vector2 offset;
+    private Vector2 boxSize;
+    private Vector2 offset;
 }
 public partial class PlayerCombat : MonoBehaviour // Data Property
 {
@@ -35,7 +32,8 @@ public partial class PlayerCombat : MonoBehaviour // Initialize
 {
     private void Allocate()
     {
-
+        boxSize = new Vector2(player.PlayerStatInformation.attack_range_x, player.PlayerStatInformation.attack_range_y);
+        offset = new Vector2(player.PlayerStatInformation.attack_offset_x, player.PlayerStatInformation.attack_offset_y);
     }
     public void Initialize(Player playerValue)
     {
@@ -79,7 +77,7 @@ public partial class PlayerCombat : MonoBehaviour // Property
             for (int i = 0; i < hitEnemyArray.Length; i++)
             {
                 Enemy hitEnemy = hitEnemyArray[i].GetComponent<Enemy>();
-                player.SendDamage(10, hitEnemy);
+                player.SendDamage(player.PlayerStatInformation, hitEnemy);
             }
         }
 

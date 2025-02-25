@@ -4,19 +4,17 @@ public partial class EnemyMovement : MonoBehaviour // Data Field
 {
     private Enemy enemy;
 
-    // TODO TEST :
-    // ∑Œ ¿€º∫
 
-    [SerializeField] private float moveSpeed;
     [field: SerializeField] public float MoveDirection { get; private set; }
     [SerializeField] private LayerMask mask;
+    private float moveSpeed;
 
 }
 public partial class EnemyMovement : MonoBehaviour // Initialize
 {
     private void Allocate()
     {
-
+        moveSpeed = enemy.EnemyStatInformation.move_speed;
     }
     public void Initialize(Enemy enemyValue)
     {

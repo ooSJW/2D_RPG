@@ -20,6 +20,16 @@ public partial class PlayerManager : MonoBehaviour // Initialize
 
     }
 }
+public partial class PlayerManager : MonoBehaviour // Property
+{
+    public bool PlayerAlive()
+    {
+        if (Player != null)
+            return true;
+
+        return false;
+    }
+}
 public partial class PlayerManager : MonoBehaviour // Sign
 {
     public void SignupPlayer(Player playerValue)

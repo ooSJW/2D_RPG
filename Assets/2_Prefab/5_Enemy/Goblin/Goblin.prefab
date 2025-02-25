@@ -204,10 +204,10 @@ MonoBehaviour:
   <EnemyMovement>k__BackingField: {fileID: -5015622093192852280}
   <EnemyCombat>k__BackingField: {fileID: 3564663746834915198}
   <EnemyAnimation>k__BackingField: {fileID: -3105633925587253042}
-  offset: {x: 0.7, y: -0.2}
-  boxSize: {x: 1.5, y: 1}
   <MinTime>k__BackingField: 1.5
   <MaxTime>k__BackingField: 3
+  offset: {x: 0.7, y: -0.25}
+  boxSize: {x: 1.7, y: 1.2}
 --- !u!114 &-5015622093192852280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,7 +220,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ac8411642dcb6d49b6c236c9f496842, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
   <MoveDirection>k__BackingField: 0
   mask:
     serializedVersion: 2
@@ -237,14 +236,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5591b9b99f6f04899d274a9fff96e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0.7, y: -0.2}
-  boxSize: {x: 1.5, y: 1}
   playerMask:
     serializedVersion: 2
     m_Bits: 128
-  attackRange: 2
-  attackDelay: 1
-  intervalTime: 0
 --- !u!114 &-3105633925587253042
 MonoBehaviour:
   m_ObjectHideFlags: 0

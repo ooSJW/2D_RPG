@@ -410,6 +410,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolableObjectList:
   - {fileID: 2798016111241820596, guid: 50a9d2b87bbfcee4e8bb3a18d51c45eb, type: 3}
+  - {fileID: 3238101718061743841, guid: 777682b9987402740a0ee3529950cce4, type: 3}
+  - {fileID: 3238101718061743841, guid: a8194a9e5169dcd4bb34660988c9c800, type: 3}
   player: {fileID: 604511322}
   spawnController: {fileID: 3690589601241573181}
 --- !u!4 &1324383723
@@ -570,6 +572,10 @@ PrefabInstance:
       propertyPath: 'spawnableEnemyName.Array.data[0]'
       value: Goblin
       objectReference: {fileID: 0}
+    - target: {fileID: 2651793214022400881, guid: c3b8a0da991bbba43a1eeb3a39894216, type: 3}
+      propertyPath: 'spawnableEnemyName.Array.data[1]'
+      value: Goblin
+      objectReference: {fileID: 0}
     - target: {fileID: 2798932989477122758, guid: c3b8a0da991bbba43a1eeb3a39894216, type: 3}
       propertyPath: m_Icon
       value: 
@@ -628,7 +634,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7018746521189675714, guid: c3b8a0da991bbba43a1eeb3a39894216, type: 3}
       propertyPath: 'spawnableEnemyName.Array.data[0]'
-      value: Goblin
+      value: Mushroom
       objectReference: {fileID: 0}
     - target: {fileID: 7785919131598356103, guid: c3b8a0da991bbba43a1eeb3a39894216, type: 3}
       propertyPath: spawnTime
@@ -648,7 +654,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7785919131598356103, guid: c3b8a0da991bbba43a1eeb3a39894216, type: 3}
       propertyPath: 'spawnableEnemyName.Array.data[0]'
-      value: Goblin
+      value: Skeleton
       objectReference: {fileID: 0}
     - target: {fileID: 8014299024706657356, guid: c3b8a0da991bbba43a1eeb3a39894216, type: 3}
       propertyPath: m_LocalPosition.x

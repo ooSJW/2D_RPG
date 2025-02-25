@@ -294,8 +294,9 @@ MonoBehaviour:
   <PlayerAnimation>k__BackingField: {fileID: 6720528154236654917}
   <PlayerGroundDetector>k__BackingField: {fileID: 6904259780698918432}
   <PlayerCombat>k__BackingField: {fileID: 2169093349330345961}
-  boxSize: {x: 1.3, y: 1.5}
-  offset: {x: 0.7, y: 0.7}
+  playerCollider: {fileID: 9117128348835321587}
+  invincibilityDuration: 1
+  blinkTime: 0.2
 --- !u!114 &3123054261458836207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,7 +324,6 @@ MonoBehaviour:
   rigid: {fileID: 8942925490989933264}
   moveSpeed: 5
   jumpSpeed: 10
-  airControlFactor: 0
 --- !u!114 &2169093349330345961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,8 +339,6 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 256
-  boxSize: {x: 1.3, y: 1.5}
-  offset: {x: 0.7, y: 0.7}
 --- !u!114 &6720528154236654917
 MonoBehaviour:
   m_ObjectHideFlags: 0

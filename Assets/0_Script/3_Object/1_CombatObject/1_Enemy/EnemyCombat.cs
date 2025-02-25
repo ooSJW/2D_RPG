@@ -3,24 +3,24 @@ using UnityEngine;
 public partial class EnemyCombat : MonoBehaviour // Data Field
 {
     private Enemy enemy;
+    private Vector2 offset;
+    private Vector2 boxSize;
 
-    // TODO TEST :
-    //
-    //
-    // DATA
-    [SerializeField] private Vector2 offset;
-    [SerializeField] private Vector2 boxSize;
     [SerializeField] private LayerMask playerMask;
 
-    [SerializeField] private float attackRange;
-    [SerializeField] private float attackDelay;
-    [SerializeField] private float intervalTime;
+    private float attackRange;
+    private float attackDelay;
+    private float intervalTime;
 }
 public partial class EnemyCombat : MonoBehaviour // Initialize
 {
     private void Allocate()
     {
-
+        boxSize = new Vector2(enemy.EnemyStatInformation.attack_range_x, enemy.EnemyStatInformation.attack_range_y);
+        offset = new Vector2(enemy.EnemyStatInformation.attack_offset_x, enemy.EnemyStatInformation.attack_offset_y);
+        attackRange = boxSize.x + offset.x;
+        //TODO : 객체마다 offset, boxSize 수정
+        attackDelay = enemy.EnemyStatInformation.attack_delay;
     }
     public void Initialize(Enemy enemyValue)
     {
@@ -41,13 +41,16 @@ public partial class EnemyCombat : MonoBehaviour // property
 
         if (intervalTime >= attackDelay)
         {
-            Vector2 targetPosition = enemy.playerTransform.position;
-            float distance = Vector2.Distance(transform.position, targetPosition);
-            if (distance <= attackRange)
+            if (MainSystem.Instance.PlayerManager.PlayerAlive())
             {
-                float direction = targetPosition.x - transform.position.x;
-                enemy.EnemyState = EnemyState.Attack;
-                enemy.EnemyAnimation.FlipX(direction);
+                Vector2 targetPosition = enemy.playerTransform.position;
+                float distance = Vector2.Distance(transform.position, targetPosition);
+                if (distance <= attackRange)
+                {
+                    float direction = targetPosition.x - transform.position.x;
+                    enemy.EnemyState = EnemyState.Attack;
+                    enemy.EnemyAnimation.FlipX(direction);
+                }
             }
         }
     }
@@ -61,7 +64,7 @@ public partial class EnemyCombat : MonoBehaviour // property
         if (hitCollider != null)
         {
             Player Player = hitCollider.gameObject.GetComponent<Player>();
-            enemy.SendDamage(10, Player);
+            enemy.SendDamage(enemy.EnemyStatInformation, Player);
         }
     }
 

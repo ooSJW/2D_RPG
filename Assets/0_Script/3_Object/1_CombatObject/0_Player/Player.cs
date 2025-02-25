@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using static PlayerStatData;
 
@@ -9,9 +10,15 @@ public partial class Player : CombatObjectBase // Data Field
     [field: SerializeField] public PlayerGroundDetector PlayerGroundDetector { get; private set; }
     [field: SerializeField] public PlayerCombat PlayerCombat { get; private set; }
 
+    [SerializeField] private Collider2D playerCollider;
+
+    [SerializeField] private float invincibilityDuration;
+    [SerializeField] private float blinkTime;
+    private float intervalTime;
+
     // TODO TEST
-    [SerializeField] private Vector2 boxSize;
-    [SerializeField] private Vector2 offset;
+    private Vector2 boxSize;
+    private Vector2 offset;
 }
 
 public partial class Player : CombatObjectBase // Data Property
@@ -40,6 +47,7 @@ public partial class Player : CombatObjectBase // Data Property
                 attack_offset_y = value.attack_offset_y,
             };
             Hp = value.max_hp;
+            MaxHp = value.max_hp;
             MaxExp = value.max_exp;
         }
     }
@@ -90,13 +98,47 @@ public partial class Player : CombatObjectBase // Data Property
                     case PlayerState.Attack:
                         PlayerCombat.Combo();
                         break;
+                    case PlayerState.Death:
+                        Death();
+                        break;
                     default:
                         PlayerAnimation.SetAnimationState(playerState);
                         break;
                 }
+                print(PlayerState.ToString());
             }
         }
     }
+
+    private int maxHp;
+    public int MaxHp { get => maxHp; private set => maxHp = value; }
+
+    public override int Hp
+    {
+        get => hp;
+        protected set
+        {
+            int hpTemp = hp;
+            if (hp != value)
+            {
+                hp = value;
+                if (hpTemp <= value)
+                {
+                    // Heal;
+                }
+                else if (hpTemp > value && value > 0)
+                    StartCoroutine(GetDamage());
+                else
+                {
+                    hp = 0;
+                    PlayerState = PlayerState.Death;
+                }
+            }
+        }
+    }
+
+    private bool isInvincible;
+    public bool IsInvincible { get => isInvincible; private set => isInvincible = value; }
 }
 
 public partial class Player : CombatObjectBase // Initialize
@@ -105,6 +147,8 @@ public partial class Player : CombatObjectBase // Initialize
     {
         level = 1;
         PlayerStatInformation = MainSystem.Instance.DataManager.PlayerStatData.GetData(level.ToString());
+        boxSize = new Vector2(PlayerStatInformation.attack_range_x, PlayerStatInformation.attack_range_y);
+        offset = new Vector2(PlayerStatInformation.attack_offset_x, PlayerStatInformation.attack_offset_y);
     }
     public override void Initialize()
     {
@@ -133,14 +177,41 @@ public partial class Player : CombatObjectBase // Main
     }
     private void Update()
     {
-        PlayerCombat.Progress();
+        if (PlayerState != PlayerState.Death)
+            PlayerCombat.Progress();
     }
     private void FixedUpdate()
     {
-        PlayerMovement.FixedProgress();
+        if (PlayerState != PlayerState.Death)
+            PlayerMovement.FixedProgress();
     }
     private void LateUpdate()
     {
-        PlayerAnimation.LateProgress();
+        if (PlayerState != PlayerState.Death)
+            PlayerAnimation.LateProgress();
+    }
+}
+public partial class Player : CombatObjectBase // Property
+{
+    private IEnumerator GetDamage()
+    {
+        playerCollider.enabled = false;
+        while (invincibilityDuration > intervalTime)
+        {
+            PlayerAnimation.Blink();
+            intervalTime += blinkTime;
+            yield return new WaitForSeconds(blinkTime);
+        }
+
+        intervalTime = 0;
+        PlayerAnimation.EndBlink();
+        playerCollider.enabled = true;
+    }
+    private void Death()
+    {
+        PlayerInput.InputAbleSetting(false);
+        playerCollider.enabled = false;
+        PlayerAnimation.PlayerDeath();
+        MainSystem.Instance.PlayerManager.SigndownPlayer();
     }
 }

@@ -1,4 +1,4 @@
-index,name,ui_name,max_hp,move_speed,min_damage,max_damage,critical_percent,critical_increase,attack_range_x,attack_range_y,attack_offset_x,attack_offset_y
-11,Goblin,고블린,30,2,7,11,0.2,0.3,1.5,1,0.7,-0.2
-12,Skeleton,스켈레톤,45,2.5,9,16,0.3,0.4,1.5,1,0.7,0
-13,Mushroon,감염된 버섯,70,3,15,24,0.4,0.5,1.5,1,0.7,0
+index,name,ui_name,max_hp,move_speed,min_damage,max_damage,critical_percent,critical_increase,attack_range_x,attack_range_y,attack_offset_x,attack_offset_y,attack_delay
+11,Goblin,고블린,30,2,7,11,0.2,0.3,1.7,1.2,0.7,-0.25,1
+12,Skeleton,스켈레톤,45,2.5,9,16,0.3,0.4,2,1.8,1.3,0,0.8
+13,Mushroom,감염된 버섯,70,3,15,24,0.4,0.5,1.8,1.8,1.3,-0.4,0.6

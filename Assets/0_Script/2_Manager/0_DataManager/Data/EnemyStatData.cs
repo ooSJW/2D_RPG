@@ -8,6 +8,8 @@ public partial class EnemyStatData  // Information
     {
         public string name;
         public string ui_name;
+
+        public float attack_delay;
     }
 }
 

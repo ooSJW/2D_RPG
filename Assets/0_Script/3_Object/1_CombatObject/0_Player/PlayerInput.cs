@@ -86,6 +86,13 @@ public partial class PlayerInput : MonoBehaviour // Private Property
 
         inputVector.x = inputX;
     }
+    public void InputAbleSetting(bool value)
+    {
+        if (value)
+            playerInputAction.Enable();
+        else
+            playerInputAction.Disable();
+    }
     public bool IsAttackPressed()
     {
         return playerInputAction.PlayerInput.Attack.IsPressed();

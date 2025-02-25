@@ -22,6 +22,7 @@ public partial class EnemyManager : MonoBehaviour // Initialize
 
     }
 }
+
 public partial class EnemyManager : MonoBehaviour // Sign
 {
     public void SignupEnemy(Enemy enemy)

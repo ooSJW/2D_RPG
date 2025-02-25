@@ -1,16 +1,20 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public partial class PlayerAnimation : MonoBehaviour // Data Field
 {
     private Player player;
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer;
+
+    private Color originColor;
 }
 public partial class PlayerAnimation : MonoBehaviour // Initialize
 {
     private void Allocate()
     {
-
+        originColor = spriteRenderer.color;
     }
     public void Initialize(Player playerValue)
     {
@@ -51,6 +55,23 @@ public partial class PlayerAnimation : MonoBehaviour // Property
             return -1;
         else return 1;
     }
+    public void Blink()
+    {
+        if (originColor == spriteRenderer.color)
+            spriteRenderer.color = originColor * 0.5f;
+        else
+            spriteRenderer.color = originColor;
+    }
+    public void EndBlink()
+    {
+        spriteRenderer.color = originColor;
+    }
+    public void PlayerDeath()
+    {
+        animator.SetInteger("State", (int)PlayerState.Death);
+        animator.SetTrigger(PlayerState.Death.ToString());
+    }
+
 }
 public partial class PlayerAnimation : MonoBehaviour // Main
 {

@@ -54,6 +54,7 @@ public partial class Enemy : CombatObjectBase // Data Property
                 max_damage = value.max_damage,
                 critical_percent = value.critical_percent,
                 critical_increase = value.critical_increase,
+                attack_delay = value.attack_delay,
                 attack_range_x = value.attack_range_x,
                 attack_range_y = value.attack_range_y,
                 attack_offset_x = value.attack_offset_x,
@@ -64,6 +65,7 @@ public partial class Enemy : CombatObjectBase // Data Property
     // random state time
     [field: SerializeField] public float MinTime { get; set; }
     [field: SerializeField] public float MaxTime { get; set; }
+
     private float randomTime;
     private float intervalTime;
 }
@@ -71,10 +73,11 @@ public partial class Enemy : CombatObjectBase // Initialize
 {
     private void Allocate()
     {
-        playerTransform = MainSystem.Instance.PlayerManager.Player.transform;
         Enum.TryParse<EnemyName>(name, true, out enemyName);
         EnemyStatInformation = MainSystem.Instance.DataManager.EnemyStatData.GetData(enemyName);
-        print(EnemyStatInformation.ui_name);
+
+        if (MainSystem.Instance.PlayerManager.PlayerAlive())
+            playerTransform = MainSystem.Instance.PlayerManager.Player.transform;
     }
     public override void Initialize()
     {
@@ -103,14 +106,15 @@ public partial class Enemy : CombatObjectBase // Main
 }
 public partial class Enemy : CombatObjectBase // Property
 {
-    private void OnDrawGizmos()
-    {
-        Vector2 attackRange = new Vector2(EnemyStatInformation.attack_range_x, EnemyStatInformation.attack_range_y);
-        Gizmos.color = Color.green;
-        Vector2 dirction = new Vector2(Mathf.Abs(attackRange.x)
-            * EnemyAnimation.GetCharacterDirection(), EnemyStatInformation.attack_offset_y);
-        Gizmos.DrawCube(transform.position + (Vector3)dirction, attackRange);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Vector2 attackRange = new Vector2(EnemyStatInformation.attack_range_x, EnemyStatInformation.attack_range_y);
+    //    Gizmos.color = Color.green;
+    //    Vector2 offset = new Vector2(Mathf.Abs(EnemyStatInformation.attack_offset_x)
+    //        * EnemyAnimation.GetCharacterDirection(), EnemyStatInformation.attack_offset_y);
+
+    //    Gizmos.DrawCube(transform.position + (Vector3)offset, attackRange);
+    //}
     private void SetRandomTime()
     {
         randomTime = UnityEngine.Random.Range(MinTime, MaxTime);
@@ -129,7 +133,6 @@ public partial class Enemy : CombatObjectBase // Property
     }
     private void SetState()
     {
-        // TODO 여기하던 중 , 가능하면 코드 보수 및 깔끔하게 간소화ㄱㄱ
         switch (EnemyState)
         {
             case EnemyState.Idle:
