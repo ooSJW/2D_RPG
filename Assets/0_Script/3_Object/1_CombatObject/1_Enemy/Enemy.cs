@@ -20,19 +20,9 @@ public partial class Enemy : CombatObjectBase // Data Property
         {
             if (enemyState != value)
             {
-                // TODO 이동 공격 및 애니메이션 추가
                 enemyState = value;
-                switch (enemyState)
-                {
-                    case EnemyState.Idle:
-                        break;
-                    case EnemyState.Move:
-                        break;
-                    case EnemyState.Attack:
-                        break;
-                    case EnemyState.Death:
-                        break;
-                }
+                if (enemyState == EnemyState.Death)
+                    Death();
             }
         }
     }
@@ -55,11 +45,30 @@ public partial class Enemy : CombatObjectBase // Data Property
                 critical_percent = value.critical_percent,
                 critical_increase = value.critical_increase,
                 attack_delay = value.attack_delay,
-                attack_range_x = value.attack_range_x,
-                attack_range_y = value.attack_range_y,
-                attack_offset_x = value.attack_offset_x,
-                attack_offset_y = value.attack_offset_y,
+                attack_range = value.attack_range,
+                attack_offset = value.attack_offset,
             };
+            hp = enemyStatInformation.max_hp;
+        }
+    }
+
+    public override int Hp
+    {
+        get => hp;
+        protected set
+        {
+            int hpTemp = hp;
+            hp = value;
+            if (hpTemp <= hp)
+            {
+                // TODO heal
+            }
+            else if (hpTemp > hp && hp > 0)
+            {
+
+            }
+            else
+                EnemyState = EnemyState.Death;
         }
     }
     // random state time
@@ -97,11 +106,13 @@ public partial class Enemy : CombatObjectBase // Main
 {
     private void Update()
     {
-        SetState();
+        if (EnemyState != EnemyState.Death)
+            SetState();
     }
     private void LateUpdate()
     {
-        EnemyAnimation.LateProgress();
+        if (EnemyState != EnemyState.Death)
+            EnemyAnimation.LateProgress();
     }
 }
 public partial class Enemy : CombatObjectBase // Property
@@ -145,9 +156,19 @@ public partial class Enemy : CombatObjectBase // Property
                 EnemyCombat.CheckAttackRange();
                 break;
             case EnemyState.Death:
+
                 break;
             default:
                 break;
         }
+    }
+    private void Death()
+    {
+        EnemyAnimation.Death();
+        MainSystem.Instance.EnemyManager.SigndownEnemy(this);
+    }
+    public void Despawn()
+    {
+        MainSystem.Instance.PoolManager.Despawn(gameObject);
     }
 }

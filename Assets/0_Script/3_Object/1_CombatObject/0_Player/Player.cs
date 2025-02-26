@@ -41,10 +41,8 @@ public partial class Player : CombatObjectBase // Data Property
                 jump_force = value.jump_force,
                 critical_percent = value.critical_percent,
                 critical_increase = value.critical_increase,
-                attack_range_x = value.attack_range_x,
-                attack_range_y = value.attack_range_y,
-                attack_offset_x = value.attack_offset_x,
-                attack_offset_y = value.attack_offset_y,
+                attack_range = value.attack_range,
+                attack_offset = value.attack_offset,
             };
             Hp = value.max_hp;
             MaxHp = value.max_hp;
@@ -105,7 +103,6 @@ public partial class Player : CombatObjectBase // Data Property
                         PlayerAnimation.SetAnimationState(playerState);
                         break;
                 }
-                print(PlayerState.ToString());
             }
         }
     }
@@ -147,8 +144,8 @@ public partial class Player : CombatObjectBase // Initialize
     {
         level = 1;
         PlayerStatInformation = MainSystem.Instance.DataManager.PlayerStatData.GetData(level.ToString());
-        boxSize = new Vector2(PlayerStatInformation.attack_range_x, PlayerStatInformation.attack_range_y);
-        offset = new Vector2(PlayerStatInformation.attack_offset_x, PlayerStatInformation.attack_offset_y);
+        boxSize = new Vector2(PlayerStatInformation.attack_range[0], PlayerStatInformation.attack_range[1]);
+        offset = new Vector2(PlayerStatInformation.attack_offset[0], PlayerStatInformation.attack_offset[1]);
     }
     public override void Initialize()
     {
@@ -213,5 +210,6 @@ public partial class Player : CombatObjectBase // Property
         playerCollider.enabled = false;
         PlayerAnimation.PlayerDeath();
         MainSystem.Instance.PlayerManager.SigndownPlayer();
+        this.enabled = false;
     }
 }

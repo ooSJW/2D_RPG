@@ -16,10 +16,9 @@ public partial class EnemyCombat : MonoBehaviour // Initialize
 {
     private void Allocate()
     {
-        boxSize = new Vector2(enemy.EnemyStatInformation.attack_range_x, enemy.EnemyStatInformation.attack_range_y);
-        offset = new Vector2(enemy.EnemyStatInformation.attack_offset_x, enemy.EnemyStatInformation.attack_offset_y);
+        boxSize = new Vector2(enemy.EnemyStatInformation.attack_range[0], enemy.EnemyStatInformation.attack_range[1]);
+        offset = new Vector2(enemy.EnemyStatInformation.attack_offset[0], enemy.EnemyStatInformation.attack_offset[1]);
         attackRange = boxSize.x + offset.x;
-        //TODO : 객체마다 offset, boxSize 수정
         attackDelay = enemy.EnemyStatInformation.attack_delay;
     }
     public void Initialize(Enemy enemyValue)

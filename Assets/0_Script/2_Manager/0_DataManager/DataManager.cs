@@ -6,13 +6,15 @@ using UnityEngine;
 
 public partial class DataManager : MonoBehaviour // Data Field
 {
-    public PlayerStatData PlayerStatData { get; private set; } = default;
-    public EnemyStatData EnemyStatData { get; private set; } = default;
+    public EnemyManagerData EnemyManagerData { get; private set; } = null;
+    public PlayerStatData PlayerStatData { get; private set; } = null;
+    public EnemyStatData EnemyStatData { get; private set; } = null;
 }
 public partial class DataManager : MonoBehaviour // Initialize
 {
     private void Allocate()
     {
+        EnemyManagerData = new EnemyManagerData();
         PlayerStatData = new PlayerStatData();
         EnemyStatData = new EnemyStatData();
     }
@@ -20,6 +22,7 @@ public partial class DataManager : MonoBehaviour // Initialize
     {
         Allocate();
         Setup();
+        EnemyManagerData.Initialize();
         PlayerStatData.Initialize();
         EnemyStatData.Initialize();
     }
@@ -74,6 +77,7 @@ public partial class DataManager : MonoBehaviour // Property
     {
         T data = new T();
         FieldInfo[] fieldInfoArray = typeof(T).GetFields();
+        string[] arrayData;
         /* if (csvValues.Length == fieldInfoArray.Length)
          {
              data.index = csvValues[0];
@@ -115,9 +119,30 @@ public partial class DataManager : MonoBehaviour // Property
             string csvKey = csvFieldName[i].Replace("\r", "");
             string csvValue = csvValues[i].Replace("\r", "");
             FieldInfo fieldInfo = fieldInfoArray.FirstOrDefault(p => p.Name == csvKey);
-
             if (fieldInfo != null)
-                fieldInfo.SetValue(data, Convert.ChangeType(csvValues[i], fieldInfo.FieldType));
+            {
+                if (fieldInfo.FieldType.IsArray)
+                {
+                    Type elementType = fieldInfo.FieldType.GetElementType();
+                    arrayData = csvValue.Split(' ');
+                    Array array = Array.CreateInstance(elementType, arrayData.Length);
+                    for (int j = 0; j < array.Length; j++)
+                    {
+                        try
+                        {
+                            var element = Convert.ChangeType(arrayData[j], elementType);
+                            array.SetValue(element, j);
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.LogWarning($"Error converting value '{arrayData[j]}' to {elementType.Name}: {e.Message}");
+                        }
+                    }
+                    fieldInfo.SetValue(data, array);
+                }
+                else
+                    fieldInfo.SetValue(data, Convert.ChangeType(csvValues[i], fieldInfo.FieldType));
+            }
             else
                 Debug.LogWarning($"ParsingError : {typeof(T)}");
         }

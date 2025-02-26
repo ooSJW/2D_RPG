@@ -4,20 +4,19 @@ using UnityEngine;
 
 public partial class SpawnController : MonoBehaviour // Data Field
 {
-    [field: SerializeField] public List<Spawner> SpawnerList { get; private set; }
+    [field: SerializeField] public Spawner Spawner { get; private set; }
 }
 public partial class SpawnController : MonoBehaviour // Initialize
 {
     private void Allocate()
     {
-        SpawnerList = new List<Spawner>();
+
     }
     public void Initialize()
     {
         Allocate();
         Setup();
-        for (int i = 0; i < SpawnerList.Count; i++)
-            SpawnerList[i].Initialize();
+        Spawner.Initialize();
     }
     private void Setup()
     {

@@ -1,5 +1,17 @@
 using UnityEngine;
 
+public enum SceneName
+{
+    None,
+    InitializeScene,
+    LoadingScene,
+    LobbyScene,
+    GoblinScene,
+    GoblineSkeletonScene,
+    SkeletonScene,
+    SkeletonMushroomScene,
+    MushroomScene,
+}
 public enum PlayerState
 {
     Idle,

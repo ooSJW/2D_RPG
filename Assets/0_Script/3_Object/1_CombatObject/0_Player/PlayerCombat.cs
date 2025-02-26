@@ -32,8 +32,8 @@ public partial class PlayerCombat : MonoBehaviour // Initialize
 {
     private void Allocate()
     {
-        boxSize = new Vector2(player.PlayerStatInformation.attack_range_x, player.PlayerStatInformation.attack_range_y);
-        offset = new Vector2(player.PlayerStatInformation.attack_offset_x, player.PlayerStatInformation.attack_offset_y);
+        boxSize = new Vector2(player.PlayerStatInformation.attack_range[0], player.PlayerStatInformation.attack_range[1]);
+        offset = new Vector2(player.PlayerStatInformation.attack_offset[0], player.PlayerStatInformation.attack_offset[1]);
     }
     public void Initialize(Player playerValue)
     {

@@ -3,6 +3,7 @@ using UnityEngine;
 public partial class SceneManager : MonoBehaviour // Data Field
 {
     public BaseScene ActiveScene { get; private set; }
+    public SceneName LoadSceneName { get; private set; }
 }
 public partial class SceneManager : MonoBehaviour // Initialize
 {
@@ -34,8 +35,9 @@ public partial class SceneManager : MonoBehaviour // Property
 }
 public partial class SceneManager : MonoBehaviour // Property
 {
-    public void LoadScene(string sceneName)
+    public void LoadScene(SceneName sceneName)
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+        LoadSceneName = sceneName;
+        UnityEngine.SceneManagement.SceneManager.LoadScene(SceneName.LoadingScene.ToString());
     }
 }

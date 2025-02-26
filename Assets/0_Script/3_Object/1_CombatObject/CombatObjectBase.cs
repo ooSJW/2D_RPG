@@ -47,7 +47,5 @@ public partial class CombatObjectBase : MonoBehaviour // Property
             Hp -= damage;
         else
             Hp = 0;
-
-        print($"[{name}]ReceiveDamage : {damage} , Critical : {isCritical}");
     }
 }

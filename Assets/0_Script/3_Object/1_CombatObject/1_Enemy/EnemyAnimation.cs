@@ -54,7 +54,11 @@ public partial class EnemyAnimation : MonoBehaviour // Property
                 spriteRenderer.flipX = true;
         }
     }
-
+    public void Death()
+    {
+        animator.SetInteger("State", (int)EnemyState.Death);
+        animator.SetTrigger(EnemyState.Death.ToString());
+    }
     public void FlipX(float xDirection)
     {
         if (xDirection > 0)

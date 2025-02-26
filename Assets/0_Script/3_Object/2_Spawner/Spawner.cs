@@ -3,13 +3,8 @@ using UnityEngine;
 public partial class Spawner : MonoBehaviour // Data Field
 {
     [SerializeField] private Transform[] spawnPoints;
-    [SerializeField] private LayerMask groundMask;
-    [SerializeField] private int spawnCount;
-    // TODO TEST :
-    // 
 
-
-    [SerializeField] private int maxEnemyCount;
+    [SerializeField] private int maxSpawnCount;
     [SerializeField] private float spawnTime;
     [SerializeField] private float intervalTime;
     [SerializeField] private string[] spawnableEnemyName;
@@ -19,17 +14,17 @@ public partial class Spawner : MonoBehaviour // Initialize
 {
     private void Allocate()
     {
-
+        spawnTime = MainSystem.Instance.EnemyManager.SpawnInterval;
+        maxSpawnCount = MainSystem.Instance.EnemyManager.MaxSpawnCount;
     }
     public void Initialize()
     {
         Allocate();
         Setup();
-
     }
     private void Setup()
     {
-
+        SpawnEnemy();
     }
 }
 public partial class Spawner : MonoBehaviour // 
@@ -47,7 +42,7 @@ public partial class Spawner : MonoBehaviour // Property
 {
     private void CheckEnemyCount()
     {
-        if (spawnCount < maxEnemyCount)
+        if (MainSystem.Instance.EnemyManager.EnemyList.Count < maxSpawnCount)
             SpawnTimer();
     }
     private void SpawnTimer()
@@ -62,26 +57,13 @@ public partial class Spawner : MonoBehaviour // Property
 
     private void SpawnEnemy()
     {
-        spawnPosition = Vector2.zero;
-        spawnPosition.x = Random.Range(spawnPoints[0].transform.position.x, spawnPoints[1].transform.position.x);
-        spawnPosition.y = spawnPoints[0].transform.position.y;
-
-        /*
-          RaycastHit2D ground = Physics2D.Raycast(spawnPosition, Vector2.down, 2.5f, groundMask);
-          if (ground.collider != null)
-          spawnPosition.y = ground.transform.position.y;
-        */
-
-        int randomEnemy = Random.Range(0, spawnableEnemyName.Length);
-        Enemy enemy = MainSystem.Instance.PoolManager.Spawn(spawnableEnemyName[randomEnemy], spawnPosition).GetComponent<Enemy>();
-        MainSystem.Instance.EnemyManager.SignupEnemy(enemy);
-        spawnCount++;
-    }
-
-    public void DespawnEnemy(Enemy enemy)
-    {
-        MainSystem.Instance.EnemyManager.SigndownEnemy(enemy);
-        MainSystem.Instance.PoolManager.Despawn(enemy.gameObject);
-        spawnCount--;
+        for (int i = MainSystem.Instance.EnemyManager.EnemyList.Count; i < maxSpawnCount; i++)
+        {
+            int randomPoint = Random.Range(0, spawnPoints.Length);
+            int randomEnemy = Random.Range(0, spawnableEnemyName.Length);
+            spawnPosition = spawnPoints[randomPoint].transform.position;
+            Enemy enemy = MainSystem.Instance.PoolManager.Spawn(spawnableEnemyName[randomEnemy], spawnPosition).GetComponent<Enemy>();
+            MainSystem.Instance.EnemyManager.SignupEnemy(enemy);
+        }
     }
 }

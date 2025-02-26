@@ -1,0 +1,6 @@
+index,scene_name,max_spawn_count,spawn_time,spawnable_enemy
+110,GoblinScene,15,10,Goblin
+111,GoblineSkeletonScene,25,10,Goblin Skeleton
+112,SkeletonScene,20,10,Skeleton
+113,SkeletonMushroomScene,30,10,Skeleton Mushroom
+114,MushroomScene,25,10,Mushroom

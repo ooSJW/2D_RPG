@@ -43,6 +43,6 @@ public partial class MainSystem : GenericSingleton<MainSystem> // Property
     public void MainSystemStart()
     {
         Initialize();
-        SceneManager.LoadScene("InGameScene");
+        SceneManager.LoadScene(SceneName.GoblinScene);
     }
 }
