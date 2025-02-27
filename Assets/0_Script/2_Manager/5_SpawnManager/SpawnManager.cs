@@ -2,7 +2,7 @@ using UnityEngine;
 
 public partial class SpawnManager : MonoBehaviour // Data Field
 {
-    [field: SerializeField] public SpawnController SpawnController { get; private set; }
+    public SpawnController SpawnController { get; private set; }
 }
 public partial class SpawnManager : MonoBehaviour // Initialize
 {

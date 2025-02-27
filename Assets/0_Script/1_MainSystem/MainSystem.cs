@@ -9,6 +9,7 @@ public partial class MainSystem : GenericSingleton<MainSystem> // Data Field
     public PlayerManager PlayerManager { get; private set; }
     public EnemyManager EnemyManager { get; private set; }
     public SpawnManager SpawnManager { get; private set; }
+    public UIManager UIManager { get; private set; }
 }
 public partial class MainSystem : GenericSingleton<MainSystem> // Initialize
 {
@@ -20,6 +21,7 @@ public partial class MainSystem : GenericSingleton<MainSystem> // Initialize
         PlayerManager = gameObject.AddComponent<PlayerManager>();
         EnemyManager = gameObject.AddComponent<EnemyManager>();
         SpawnManager = gameObject.AddComponent<SpawnManager>();
+        UIManager = gameObject.AddComponent<UIManager>();
     }
     public void Initialize()
     {
@@ -32,6 +34,7 @@ public partial class MainSystem : GenericSingleton<MainSystem> // Initialize
         PlayerManager.Initialize();
         EnemyManager.Initialize();
         SpawnManager.Initialize();
+        UIManager.Initialize();
     }
     private void Setup()
     {
@@ -43,6 +46,6 @@ public partial class MainSystem : GenericSingleton<MainSystem> // Property
     public void MainSystemStart()
     {
         Initialize();
-        SceneManager.LoadScene(SceneName.GoblinScene);
+        SceneManager.LoadScene(SceneName.LobbyScene);
     }
 }

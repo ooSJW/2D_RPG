@@ -1161,7 +1161,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 761878a183fe5554a9fd91045be92e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiController: {fileID: 0}
   poolableObjectList: []
+  player: {fileID: 0}
+  spawnController: {fileID: 0}
   progressBar: {fileID: 1676270687}
   loadingText: {fileID: 642947221}
 --- !u!1 &2053570825

@@ -27,8 +27,8 @@ public partial class LoadingScene : BaseScene // Initialize
     }
     private void Setup()
     {
-        fadeSpeed = 1f;
-        alpha = 0.3f;
+        fadeSpeed = 1.5f;
+        alpha = 0.2f;
         fadeIn = true;
     }
 }
@@ -48,14 +48,15 @@ public partial class LoadingScene : BaseScene // Main
                 alpha = 1f;
                 fadeIn = false;
             }
-            else
-                alpha -= fadeSpeed * Time.deltaTime;
-            if (alpha <= 0.3f)
-            {
-                alpha = 0.3f;
-                fadeIn = true;
-            }
         }
+        else
+            alpha -= fadeSpeed * Time.deltaTime;
+        if (alpha <= 0.3f)
+        {
+            alpha = 0.3f;
+            fadeIn = true;
+        }
+
         Color color = loadingText.color;
         color.a = alpha;
         loadingText.color = color;
