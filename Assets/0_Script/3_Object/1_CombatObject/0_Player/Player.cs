@@ -90,18 +90,21 @@ public partial class Player : CombatObjectBase // Data Property
         {
             if (playerState != value)
             {
-                playerState = value;
-                switch (playerState)
+                if (playerState != PlayerState.Death)
                 {
-                    case PlayerState.Attack:
-                        PlayerCombat.Combo();
-                        break;
-                    case PlayerState.Death:
-                        Death();
-                        break;
-                    default:
-                        PlayerAnimation.SetAnimationState(playerState);
-                        break;
+                    playerState = value;
+                    switch (playerState)
+                    {
+                        case PlayerState.Attack:
+                            PlayerCombat.Combo();
+                            break;
+                        case PlayerState.Death:
+                            Death();
+                            break;
+                        default:
+                            PlayerAnimation.SetAnimationState(playerState);
+                            break;
+                    }
                 }
             }
         }
@@ -165,17 +168,13 @@ public partial class Player : CombatObjectBase // Initialize
 }
 public partial class Player : CombatObjectBase // Main
 {
-    // TODO TEST
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Vector2 dirction = new Vector2(Mathf.Abs(offset.x) * PlayerAnimation.GetCharacterDirection(), offset.y);
-        Gizmos.DrawCube(transform.position + (Vector3)dirction, boxSize);
-    }
     private void Update()
     {
         if (PlayerState != PlayerState.Death)
+        {
             PlayerCombat.Progress();
+            PlayerGroundDetector.Progress();
+        }
     }
     private void FixedUpdate()
     {

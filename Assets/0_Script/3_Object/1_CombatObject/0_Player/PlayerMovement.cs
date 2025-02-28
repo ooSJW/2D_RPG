@@ -46,7 +46,7 @@ public partial class PlayerMovement : MonoBehaviour // Main
 }
 public partial class PlayerMovement : MonoBehaviour // Property
 {
-    public void PlayerMove()
+    private void PlayerMove()
     {
         if (CanMove)
         {
@@ -78,7 +78,11 @@ public partial class PlayerMovement : MonoBehaviour // Property
     }
     public void EndJump()
     {
-        if (!player.PlayerCombat.IsAttacking)
+        if (!player.PlayerCombat.IsAttacking )
             player.PlayerState = PlayerState.Idle;
+    }
+    public float GetVelocityY()
+    {
+        return rigid.linearVelocityY;
     }
 }

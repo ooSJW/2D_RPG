@@ -36,11 +36,6 @@ public partial class EnemyMovement : MonoBehaviour // Main
 }
 public partial class EnemyMovement : MonoBehaviour // Property
 {
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(new Vector2(transform.position.x + MoveDirection, transform.position.y),
-            new Vector2(transform.position.x + MoveDirection, transform.position.y) + Vector2.down);
-    }
     public void SetMoveDirection()
     {
         MoveDirection = Random.Range(-1, 1);

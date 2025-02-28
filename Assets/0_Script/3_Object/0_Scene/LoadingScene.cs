@@ -27,7 +27,7 @@ public partial class LoadingScene : BaseScene // Initialize
     }
     private void Setup()
     {
-        fadeSpeed = 1.5f;
+        fadeSpeed = 1f;
         alpha = 0.2f;
         fadeIn = true;
     }
@@ -79,7 +79,7 @@ public partial class LoadingScene : BaseScene // Coroutine
             }
             else
             {
-                timer += Time.unscaledDeltaTime * 0.3f;
+                timer += Time.unscaledDeltaTime * 0.5f;
                 progressBar.fillAmount = Mathf.Lerp(0.8f, 1f, timer);
                 if (progressBar.fillAmount >= 1f)
                 {

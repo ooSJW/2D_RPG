@@ -8,6 +8,7 @@ public partial class EnemyManager : MonoBehaviour // Data Property
     public List<Enemy> EnemyList { get; private set; }
     public int MaxSpawnCount { get; private set; }
     public float SpawnInterval { get; private set; }
+    public string[] SpawnableEnemy { get; private set; }
 
     private EnemyManagerInformation enemyManagerInformation;
     public EnemyManagerInformation EnemyManagerInformation
@@ -25,6 +26,7 @@ public partial class EnemyManager : MonoBehaviour // Data Property
             };
             MaxSpawnCount = value.max_spawn_count;
             SpawnInterval = value.spawn_time;
+            SpawnableEnemy = value.spawnable_enemy;
         }
     }
 

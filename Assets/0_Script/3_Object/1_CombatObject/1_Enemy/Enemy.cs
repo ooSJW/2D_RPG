@@ -87,6 +87,8 @@ public partial class Enemy : CombatObjectBase // Initialize
 
         if (MainSystem.Instance.PlayerManager.PlayerAlive())
             playerTransform = MainSystem.Instance.PlayerManager.Player.transform;
+
+        EnemyState = EnemyState.Idle;
     }
     public override void Initialize()
     {

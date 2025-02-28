@@ -7,7 +7,7 @@ public partial class Spawner : MonoBehaviour // Data Field
     [SerializeField] private int maxSpawnCount;
     [SerializeField] private float spawnTime;
     [SerializeField] private float intervalTime;
-    [SerializeField] private string[] spawnableEnemyName;
+    [SerializeField] private string[] spawnableEnemy;
     private Vector2 spawnPosition;
 }
 public partial class Spawner : MonoBehaviour // Initialize
@@ -16,6 +16,7 @@ public partial class Spawner : MonoBehaviour // Initialize
     {
         spawnTime = MainSystem.Instance.EnemyManager.SpawnInterval;
         maxSpawnCount = MainSystem.Instance.EnemyManager.MaxSpawnCount;
+        spawnableEnemy = MainSystem.Instance.EnemyManager.SpawnableEnemy;
     }
     public void Initialize()
     {
@@ -32,10 +33,6 @@ public partial class Spawner : MonoBehaviour //
     private void Update()
     {
         CheckEnemyCount();
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(spawnPosition, Vector2.down * 2.5f);
     }
 }
 public partial class Spawner : MonoBehaviour // Property
@@ -60,9 +57,9 @@ public partial class Spawner : MonoBehaviour // Property
         for (int i = MainSystem.Instance.EnemyManager.EnemyList.Count; i < maxSpawnCount; i++)
         {
             int randomPoint = Random.Range(0, spawnPoints.Length);
-            int randomEnemy = Random.Range(0, spawnableEnemyName.Length);
+            int randomEnemy = Random.Range(0, spawnableEnemy.Length);
             spawnPosition = spawnPoints[randomPoint].transform.position;
-            Enemy enemy = MainSystem.Instance.PoolManager.Spawn(spawnableEnemyName[randomEnemy], spawnPosition).GetComponent<Enemy>();
+            Enemy enemy = MainSystem.Instance.PoolManager.Spawn(spawnableEnemy[randomEnemy], spawnPosition).GetComponent<Enemy>();
             MainSystem.Instance.EnemyManager.SignupEnemy(enemy);
         }
     }
